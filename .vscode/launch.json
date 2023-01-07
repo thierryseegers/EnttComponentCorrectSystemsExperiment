@@ -1,0 +1,44 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "(lldb) Launch",
+            // "type": "lldb",
+            "type": "cppdbg",
+            "request": "launch",
+            // "program": "${command:cmake.launchTargetPath}",
+            "program": "${workspaceFolder}/build/darwin-x64-Debug/ccs",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${command:cmake.buildDirectory}",
+            "environment": [
+                {"name": "ASAN_OPTIONS", "value": "detect_container_overflow=0"}
+            ],
+            "externalConsole": false,
+            "preLaunchTask": "build",
+            "osx": {
+                "MIMode": "lldb",
+            },
+            "miDebuggerArgs": "--quiet",
+            "targetArchitecture": "x64",
+            "logging": {
+                "moduleLoad": false
+            },
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                // {
+                //     "description": "Enable break on all exceptions",
+                //     "text": "catch throw",
+                //     "ignoreFailures": true
+                // }
+            ]
+        }
+    ]
+}
