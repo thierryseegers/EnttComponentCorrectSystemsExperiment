@@ -8,7 +8,20 @@
 #include <functional>
 #include <iostream>
 #include <string_view>
+#include <tuple>
 #include <utility>
+
+
+template<template<typename> class F, typename... Ts>
+struct filtered
+{
+  using type = entt::type_list_cat_t<std::conditional_t<F<Ts>::value,
+                                     entt::type_list<>,
+                                     entt::type_list<Ts>>...>;
+};
+
+template<typename T>
+using is_not_const = std::negation<std::is_const<T>>;
 
 void some_callback1(entt::registry &r)
 {
@@ -21,6 +34,13 @@ void some_callback2(entt::registry &r)
 }
 
 int main() {
+    // using tlc = filtered<std::is_const, const int, const float, const std::string>::type;
+    using tlc = filtered<is_not_const, int, float, const std::string>::type;
+    std::cout << tlc::size << std::endl;
+
+    // using tlnc = entt::type_list<filter<std::negation<std::is_const>, std::tuple, int, const float, const std::string>>;
+    // std::cout << tlnc::size << std::endl;
+
   entt::registry r;
 
   const auto e = r.create();

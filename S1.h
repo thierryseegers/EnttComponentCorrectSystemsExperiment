@@ -7,9 +7,9 @@
 
 #include <iostream>
 
-using S1 = System<comp_list<C1, C3>, comp_list<C2>>;
+using S1 = System<const C1, const C3, C2>;
 
-void update(S1 &system)
+void update(S1 const& system)
 {
     std::cout << ">>> update(S1)" << std::endl;
     auto view_C1 = get_view<const C1>(system);
@@ -22,7 +22,8 @@ void update(S1 &system)
     for (const auto e : view_C1)
     {
         // auto view_C2 = get_view<C2>(system);
-        auto& storage_C2{get_storage<C2>(system)};
+        auto [storage_C2] = get_storages<C2>(system);
+        entt::basic_view view_C2{storage_C2};
 
         if (storage_C2.contains(e))
         {
