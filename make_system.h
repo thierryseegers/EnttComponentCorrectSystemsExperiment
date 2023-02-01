@@ -8,12 +8,11 @@
 namespace detail
 {
 
-template<typename SystemT, typename... ConstComps, typename... MutableComps>
-auto make_system(entt::registry& r, comp_list<ConstComps...>&&, comp_list<MutableComps...>&&) -> SystemT
+template<typename SystemT, typename... Comps>
+auto make_system(entt::registry& r, comp_list<Comps...>&&) -> SystemT
 {
   return SystemT{
-    .const_storages = {r.storage<ConstComps>()...},
-    .mutable_sorages = {r.storage<MutableComps>()...}
+    .storages = {r.storage<Comps>()...}
     };
 }
 
@@ -22,5 +21,5 @@ auto make_system(entt::registry& r, comp_list<ConstComps...>&&, comp_list<Mutabl
 template<typename SystemT>
 auto make_system(entt::registry& r) -> SystemT
 {
-  return detail::make_system<SystemT>(r, typename SystemT::const_comp_list{}, typename SystemT::mutable_comp_list{});
+  return detail::make_system<SystemT>(r, typename SystemT::comps_list{});
 }

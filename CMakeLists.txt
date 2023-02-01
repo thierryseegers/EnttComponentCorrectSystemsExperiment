@@ -44,11 +44,11 @@ conan_cmake_configure(
     REQUIRES
         ${CONAN_BOOST_PACKAGE}
         entt/3.10.3
-        magic_enum/0.8.0
-        tomlplusplus/3.1.0
-        sfml/2.5.1
-        spdlog/1.10.0
-        zlib/1.2.12
+        # magic_enum/0.8.0
+        # tomlplusplus/3.1.0
+        # sfml/2.5.1
+        # spdlog/1.10.0
+        # zlib/1.2.12
 )
 
 foreach(TYPE ${CMAKE_CONFIGURATION_TYPES};${CMAKE_BUILD_TYPE})
@@ -115,26 +115,26 @@ find_package(EnTT 3.10.3
     REQUIRED
 )
 
-find_package(magic_enum 0.8.0
-    CONFIG
-    REQUIRED
-)
+# find_package(magic_enum 0.8.0
+#     CONFIG
+#     REQUIRED
+# )
 
-find_package(SFML 2.5.1
-    CONFIG
-    COMPONENTS audio graphics system window
-    REQUIRED
-)
+# find_package(SFML 2.5.1
+#     CONFIG
+#     COMPONENTS audio graphics system window
+#     REQUIRED
+# )
 
-find_package(spdlog 1.9.2
-    CONFIG
-    REQUIRED
-)
+# find_package(spdlog 1.9.2
+#     CONFIG
+#     REQUIRED
+# )
 
-find_package(tomlplusplus 3.1.0
-    CONFIG
-    REQUIRED
-)
+# find_package(tomlplusplus 3.1.0
+#     CONFIG
+#     REQUIRED
+# )
 
 add_executable(${PROJECT_NAME}
     main.cpp
@@ -290,10 +290,10 @@ target_link_libraries(${PROJECT_NAME}
     PRIVATE
         Boost::graph
         EnTT::EnTT
-        magic_enum::magic_enum
-        SFML::SFML
-        spdlog::spdlog
-        tomlplusplus::tomlplusplus
+        # magic_enum::magic_enum
+        # SFML::SFML
+        # spdlog::spdlog
+        # tomlplusplus::tomlplusplus
 )
 
 if(APPLE)
