@@ -105,5 +105,6 @@
         "valarray": "cpp",
         "variant": "cpp",
         "vector": "cpp",
+        "version": "cpp"
     }
 }

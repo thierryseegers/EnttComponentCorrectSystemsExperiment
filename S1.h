@@ -6,20 +6,25 @@
 #include "system.h"
 
 #include <iostream>
+#include <span>
 
-using S1 = System<comp_list<C1, C3>, comp_list<C2>>;
+namespace systems
+{
 
-void update(S1 &system)
+using s1 = description<triggered_by<C1, C3>, updates<C2>>;
+
+template<>
+void update(s1 &system, const std::span<const entt::entity>& triggering_entities)
 {
     std::cout << ">>> update(S1)" << std::endl;
-    auto view_C1 = get_view<const C1>(system);
+    // auto view_C1 = get_view<const C1>(system);
 
-    for (const auto [e, c1] : view_C1.each())
-    {
-        // c1.value = 100.0f; // As C1 is in read only, it is not possible to be modified!
-    }
+    // for (const auto [e, c1] : view_C1.each())
+    // {
+    //     // c1.value = 100.0f; // As C1 is in read only, it is not possible to be modified!
+    // }
 
-    for (const auto e : view_C1)
+    for (const auto e : triggering_entities)
     {
         // auto view_C2 = get_view<C2>(system);
         auto& storage_C2{get_storage<C2>(system)};
@@ -40,6 +45,7 @@ void update(S1 &system)
         }
     }
 
+    get_view<const C1, const C3>(system);
     // auto view_C1_C2 = get_view<const C1, C2>(system);
     // for (auto&& [e, c1, c2] : view_C1_C2.each())
     // {
@@ -51,4 +57,6 @@ void update(S1 &system)
     //     // c3 = 22.f;
     //     // c2 = 44.f;
     // }
+}
+
 }
